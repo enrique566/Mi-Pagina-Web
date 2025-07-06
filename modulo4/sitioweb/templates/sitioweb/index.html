@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca - Gestión</title>
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+        .nav-pills .nav-link.active {
+            background-color: #1c2331 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center mb-5">Gestión de la Biblioteca</h1>
+
+        <!-- Navegación -->
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-libros-tab" data-mdb-toggle="pill" data-mdb-target="#pills-libros" type="button" role="tab" aria-controls="pills-libros" aria-selected="true">Libros</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-computadoras-tab" data-mdb-toggle="pill" data-mdb-target="#pills-computadoras" type="button" role="tab" aria-controls="pills-computadoras" aria-selected="false">Uso de Computadoras</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-administrativo-tab" data-mdb-toggle="pill" data-mdb-target="#pills-administrativo" type="button" role="tab" aria-controls="pills-administrativo" aria-selected="false">Área Administrativa</button>
+            </li>
+        </ul>
+
+        <!-- Contenido de las Pestañas -->
+        <div class="tab-content" id="pills-tabContent">
+            <!-- Pestaña de Libros -->
+            <div class="tab-pane fade show active" id="pills-libros" role="tabpanel" aria-labelledby="pills-libros-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Registrar Libro</h5>
+                        <form id="form-libro">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="text" id="titulo" class="form-control" required />
+                                        <label class="form-label" for="titulo">Título</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="text" id="autor" class="form-control" required />
+                                        <label class="form-label" for="autor">Autor</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <select class="form-select mb-4" id="categoria" required>
+                                <option value="" disabled selected>Selecciona una categoría</option>
+                                <option value="CLASICOS">Clásicos</option>
+                                <option value="TERROR">Terror</option>
+                                <option value="FANTASIA">Fantasía</option>
+                                <option value="HISTORIA">Historia</option>
+                                <option value="POESIA">Poesía</option>
+                                <option value="MUSICA">Música</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                        </form>
+                        <hr>
+                        <h5 class="card-title mt-5">Libros Registrados</h5>
+                        <div id="lista-libros"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pestaña de Computadoras -->
+            <div class="tab-pane fade" id="pills-computadoras" role="tabpanel" aria-labelledby="pills-computadoras-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Registrar Sesión de Computadora</h5>
+                        <form id="form-sesion">
+                            <div class="form-outline mb-4">
+                                <input type="number" id="tiempo_uso" class="form-control" required />
+                                <label class="form-label" for="tiempo_uso">Tiempo de uso (minutos)</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <textarea class="form-control" id="sitios_web" rows="3" required></textarea>
+                                <label class="form-label" for="sitios_web">Sitios web visitados</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                        </form>
+                        <hr>
+                        <h5 class="card-title mt-5">Sesiones Registradas</h5>
+                        <div id="lista-sesiones"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pestaña Administrativa -->
+            <div class="tab-pane fade" id="pills-administrativo" role="tabpanel" aria-labelledby="pills-administrativo-tab">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Registrar Horas de Trabajo</h5>
+                        <form id="form-trabajo">
+                            <div class="form-outline mb-4">
+                                <input type="text" id="nombre_empleado" class="form-control" required />
+                                <label class="form-label" for="nombre_empleado">Nombre del Empleado</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="number" id="horas_trabajadas" class="form-control" step="0.01" required />
+                                        <label class="form-label" for="horas_trabajadas">Horas Trabajadas</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline">
+                                        <input type="date" id="fecha_trabajo" class="form-control" required />
+                                        <label class="form-label" for="fecha_trabajo">Fecha</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                        </form>
+                        <hr>
+                        <h5 class="card-title mt-5">Registros de Trabajo</h5>
+                        <div id="lista-trabajo"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+    <script>
+        const csrftoken = '{{ csrf_token }}';
+
+        // --- Lógica para Libros ---
+        const formLibro = document.getElementById('form-libro');
+        const listaLibros = document.getElementById('lista-libros');
+
+        const obtenerLibros = async () => {
+            const res = await fetch('/api/libros/');
+            const libros = await res.json();
+            listaLibros.innerHTML = '';
+            libros.forEach(libro => {
+                const div = document.createElement('div');
+                div.className = 'card mb-2';
+                div.innerHTML = `
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title mb-0">${libro.titulo}</h5>
+                            <p class="card-text text-muted mb-0">${libro.autor} - ${libro.categoria}</p>
+                        </div>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarLibro(${libro.id})">Eliminar</button>
+                    </div>
+                `;
+                listaLibros.appendChild(div);
+            });
+        };
+
+        formLibro.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                titulo: document.getElementById('titulo').value,
+                autor: document.getElementById('autor').value,
+                categoria: document.getElementById('categoria').value,
+            };
+            await fetch('/api/libros/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken },
+                body: JSON.stringify(data)
+            });
+            formLibro.reset();
+            document.querySelectorAll('.form-outline').forEach(el => el.classList.remove('focused'));
+            obtenerLibros();
+        });
+
+        const eliminarLibro = async (id) => {
+            await fetch(`/api/libros/${id}/`, {
+                method: 'DELETE',
+                headers: { 'X-CSRFToken': csrftoken }
+            });
+            obtenerLibros();
+        };
+
+        // --- Lógica para Sesiones de Computadora ---
+        const formSesion = document.getElementById('form-sesion');
+        const listaSesiones = document.getElementById('lista-sesiones');
+
+        const obtenerSesiones = async () => {
+            const res = await fetch('/api/sesiones/');
+            const sesiones = await res.json();
+            listaSesiones.innerHTML = '';
+            sesiones.forEach(sesion => {
+                const div = document.createElement('div');
+                div.className = 'card mb-2';
+                div.innerHTML = `
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title mb-0">Sesión del ${new Date(sesion.fecha).toLocaleString()}</h5>
+                            <p class="card-text text-muted mb-0">Duración: ${sesion.tiempo_uso_minutos} min</p>
+                            <p class="card-text text-muted mb-0">Sitios: ${sesion.sitios_web_visitados}</p>
+                        </div>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarSesion(${sesion.id})">Eliminar</button>
+                    </div>
+                `;
+                listaSesiones.appendChild(div);
+            });
+        };
+
+        formSesion.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                tiempo_uso_minutos: document.getElementById('tiempo_uso').value,
+                sitios_web_visitados: document.getElementById('sitios_web').value,
+            };
+            await fetch('/api/sesiones/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken },
+                body: JSON.stringify(data)
+            });
+            formSesion.reset();
+            document.querySelectorAll('.form-outline').forEach(el => el.classList.remove('focused'));
+            obtenerSesiones();
+        });
+
+        const eliminarSesion = async (id) => {
+            await fetch(`/api/sesiones/${id}/`, {
+                method: 'DELETE',
+                headers: { 'X-CSRFToken': csrftoken }
+            });
+            obtenerSesiones();
+        };
+
+        // --- Lógica para Registros de Trabajo ---
+        const formTrabajo = document.getElementById('form-trabajo');
+        const listaTrabajo = document.getElementById('lista-trabajo');
+
+        const obtenerRegistros = async () => {
+            const res = await fetch('/api/registros/');
+            const registros = await res.json();
+            listaTrabajo.innerHTML = '';
+            registros.forEach(registro => {
+                const div = document.createElement('div');
+                div.className = 'card mb-2';
+                div.innerHTML = `
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title mb-0">${registro.nombre_empleado}</h5>
+                            <p class="card-text text-muted mb-0">Horas: ${registro.horas_trabajadas} - Fecha: ${registro.fecha}</p>
+                        </div>
+                        <button class="btn btn-danger btn-sm" onclick="eliminarRegistro(${registro.id})">Eliminar</button>
+                    </div>
+                `;
+                listaTrabajo.appendChild(div);
+            });
+        };
+
+        formTrabajo.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                nombre_empleado: document.getElementById('nombre_empleado').value,
+                horas_trabajadas: document.getElementById('horas_trabajadas').value,
+                fecha: document.getElementById('fecha_trabajo').value,
+            };
+            await fetch('/api/registros/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': csrftoken },
+                body: JSON.stringify(data)
+            });
+            formTrabajo.reset();
+            document.querySelectorAll('.form-outline').forEach(el => el.classList.remove('focused'));
+            obtenerRegistros();
+        });
+
+        const eliminarRegistro = async (id) => {
+            await fetch(`/api/registros/${id}/`, {
+                method: 'DELETE',
+                headers: { 'X-CSRFToken': csrftoken }
+            });
+            obtenerRegistros();
+        };
+
+
+        // Cargar datos al iniciar
+        document.addEventListener('DOMContentLoaded', () => {
+            obtenerLibros();
+            obtenerSesiones();
+            obtenerRegistros();
+        });
+    </script>
+</body>
+</html>
