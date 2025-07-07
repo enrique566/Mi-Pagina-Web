@@ -1,0 +1,13 @@
+Username: admin Contraseña: admin
+
+paso 1 
+
+.\venv\Scripts\activate
+
+Paso 2
+
+python manage.py runserver
+
+link el video
+https://youtu.be/uJ5Okg_oi1o
+
